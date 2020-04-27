@@ -9,4 +9,4 @@ Configuration
 ===
 This addon allows you to create a list of buttons to add, with their own labels, shortcuts and icons, as well as the begin and end wrapping.
 
-For more details see [config.md]
+For more details see [config.md](config.md)
