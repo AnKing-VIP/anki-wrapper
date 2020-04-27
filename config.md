@@ -9,6 +9,6 @@
       * All parameters can be found in the [addButton function](https://github.com/ankitects/anki/blob/master/qt/aqt/editor.py#L211)
     - css: css classes to add when calling this button
       * Key: Name of the css class
-      * Value: Style of the class. Can be either one-line (string) or multi-line (array of strings)
+      * Value: Object representing the style of the class. Can also be a one-line string or a multiline string (array of string)
     - beginWrap: Left-wrapping text
     - endWrap: Right-wrapping text

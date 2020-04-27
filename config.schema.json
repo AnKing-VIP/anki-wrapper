@@ -26,6 +26,7 @@
             "type": "object",
             "additionalProperties": {
               "anyOf": [
+                {"type": "object", "additionalProperties": true},
                 {"type": "string"},
                 {"type": "array", "items": {"type": "string"}}
               ]

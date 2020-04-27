@@ -4,8 +4,12 @@ import re
 
 def add_css(cmd, editor):
     def _compose_css(name, css):
+        if isinstance(css, dict):
+            css = ';\n'.join([*[f"{key}: {value}" for key, value in
+                css.items()], ""])[:-1]
         if isinstance(css, list):
             css = '\n'.join(css)
+        css = '\n  '.join(["", *css.split('\n')])[1:]
         return (f".{name} {{\n"
                 f"{css}\n"
                 f"}}\n")
