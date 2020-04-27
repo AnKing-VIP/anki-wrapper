@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Wrapper",
+  "properties": {
+    "buttons": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "style": {
+            "type": "object",
+            "properties": {
+              "keys": {
+                "type": "string",
+                "pattern": "^((([Cc][Tt][Rr][Ll]|[Aa][Ll][Tt]|[Ss][Hh][Ii][Ff][Tt])\\+){0,3}([a-zA-Z0-9]|F[1-9]|F1[0-2]))?$",
+                "default": ""
+              },
+              "icon": { "type": "string", "default": "" },
+              "tip": { "type": "string", "default": "" },
+              "label": { "type": "string", "default": "" }
+            },
+            "additionalProperties": true
+          },
+          "css": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {"type": "string"},
+                {"type": "array", "items": {"type": "string"}}
+              ]
+            }
+          },
+          "beginWrap": {"type": "string"},
+          "endWrap": {"type": "string"}
+        },
+        "required": ["beginWrap", "endWrap"]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": ["buttons"]
+}
