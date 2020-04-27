@@ -6,12 +6,16 @@
         "tip": "Justify text and center it"
       },
       "css": {
-        "leftalign": "display: inline-block;",
-        "centeredbox": "text-align: center;"
+        "leftalign": {
+          "display": "inline-block",
+          "text-align": "left"
+        },
+        "centeredbox": {
+            "text-align": "center"
+        }
       },
       "beginWrap": "<div class=\"centeredbox\"><div class=\"leftalign\">",
       "endWrap": "</div></div>"
     }
   }
 }
-
