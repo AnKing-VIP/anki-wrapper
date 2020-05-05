@@ -8,6 +8,8 @@
       "additionalProperties": {
         "type": "object",
         "properties": {
+          "action": {"type": "string"},
+          "visible": {"type": "boolean"},
           "style": {
             "type": "object",
             "properties": {
@@ -35,7 +37,8 @@
           "beginWrap": {"type": "string"},
           "endWrap": {"type": "string"}
         },
-        "required": ["beginWrap", "endWrap"]
+        "additionalProperties": false,
+        "required": ["action", "beginWrap", "endWrap"]
       }
     }
   },

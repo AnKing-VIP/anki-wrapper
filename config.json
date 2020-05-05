@@ -1,8 +1,9 @@
 {
   "buttons": {
     "justify": {
+      "action": "wrap",
       "style": {
-        "icon": "left_justify",
+        "icon": "left_justify.png",
         "tip": "Justify text and center it"
       },
       "css": {
@@ -16,6 +17,51 @@
       },
       "beginWrap": "<div class=\"centeredbox\"><div class=\"leftalign\">",
       "endWrap": "</div></div>"
+    },
+    "endCloze": {
+      "visible": false,
+      "action": "moveEnd",
+      "style": {
+        "keys": "ctrl+g"
+      },
+      "beginWrap": "{{c[0-9]:",
+      "endWrap": "}}"
+    },
+    "endClozeInside": {
+      "visible": false,
+      "action": "moveEndInside",
+      "style": {
+        "keys": "ctrl+shift+g"
+      },
+      "beginWrap": "{{c[0-9]:",
+      "endWrap": "}}"
+    },
+    "beginCloze": {
+      "visible": false,
+      "action": "moveBegin",
+      "style": {
+        "keys": "ctrl+f"
+      },
+      "beginWrap": "{{c[0-9]:",
+      "endWrap": "}}"
+    },
+    "beginClozeInside": {
+      "visible": false,
+      "action": "moveBeginInside",
+      "style": {
+        "keys": "ctrl+shift+f"
+      },
+      "beginWrap": "{{c[0-9]:",
+      "endWrap": "}}"
+    },
+    "uncloze": {
+      "visible": false,
+      "action": "unwrap",
+      "style": {
+        "keys": "ctrl+alt+u"
+      },
+      "beginWrap": "{{c[0-9]:",
+      "endWrap": "}}"
     }
   }
 }

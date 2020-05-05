@@ -1,8 +1,10 @@
 * buttons: Main object. Specify every wrapper buttons to create
   + Key: The name of the command (free)
   + Value: Object
+    - action: The action to execute. Must be a function either in commands.js or user\_files/js.js
+    - visible: Is the button visible, or is it only a shortcut 
     - style: object specifying the style of the button itself. Any parameter can be skipped
-      * icon: Path to the png icon in the user_files/icons/ folder. (If your file is "user_files/icons/hello.png", put "hello")
+      * icon: Path to the icon in the user_files/icons/ folder. (If your file is "user_files/icons/hello.png", put "hello.png")
       * tip: Alt-text to display to the user
       * keys: Keyboard shortcut to the button (eg. "Shift+c")
       * label: Name to display if there is no icon

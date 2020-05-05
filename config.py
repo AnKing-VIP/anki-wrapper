@@ -34,7 +34,6 @@ def getUserOption(keys=None, **kwargs):
         default_value = kwargs['default']
     except KeyError:
         default_on_block = False
-        default_value = None
     else:
         default_on_block = True
 
@@ -49,15 +48,19 @@ def getUserOption(keys=None, **kwargs):
             assert isinstance(current, dict)
 
         if key not in current:
-            current[key] = current_default[key]
-            # Raise KeyError if key is not in this sub dictionnary of the default config.
-            # Raise TypeError: object is not subscriptable if it's not a dictionnary
-            change = True
+            try:
+                current[key] = current_default[key]
+                change = True
+            except (TypeError, KeyError):
+                return default_value
         if isinstance(current_default, dict) and key in current_default:
             current_default = current_default[key]
         else:
             current_default = None
-        current = current[key]
+        try:
+            current = current[key]
+        except (TypeError, KeyError):
+            return default_value
 
     if change:
         writeConfig()
