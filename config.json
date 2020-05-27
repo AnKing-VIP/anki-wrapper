@@ -22,36 +22,36 @@
       "visible": false,
       "action": "moveEnd",
       "style": {
-        "keys": "ctrl+g"
+        "keys": "ctrl+shift+space"
       },
-      "beginWrap": "{{c[0-9]:",
-      "endWrap": "}}"
+      "beginWrap": "{{c[0-9]::",
+      "endWrap": "}} ?"
     },
     "endClozeInside": {
       "visible": false,
       "action": "moveEndInside",
       "style": {
-        "keys": "ctrl+shift+g"
+        "keys": "ctrl+space"
       },
-      "beginWrap": "{{c[0-9]:",
+      "beginWrap": "{{c[0-9]::",
       "endWrap": "}}"
     },
     "beginCloze": {
       "visible": false,
       "action": "moveBegin",
       "style": {
-        "keys": "ctrl+f"
+        "keys": "ctrl+alt+shift+space"
       },
-      "beginWrap": "{{c[0-9]:",
+      "beginWrap": "{{c[0-9]::",
       "endWrap": "}}"
     },
     "beginClozeInside": {
       "visible": false,
       "action": "moveBeginInside",
       "style": {
-        "keys": "ctrl+shift+f"
+        "keys": "ctrl+alt+space"
       },
-      "beginWrap": "{{c[0-9]:",
+      "beginWrap": "{{c[0-9]::",
       "endWrap": "}}"
     },
     "uncloze": {
@@ -60,7 +60,7 @@
       "style": {
         "keys": "ctrl+alt+u"
       },
-      "beginWrap": "{{c[0-9]:",
+      "beginWrap": "{{c[0-9]::",
       "endWrap": "}}"
     }
   }
