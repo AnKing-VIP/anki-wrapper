@@ -20,7 +20,7 @@ function callCmd(cmd, beginPattern, endPattern) {
 
   // Adding matches of patterns if they exist
   const text = node.textContent.substring(0, range.startOffset) + '\x1f' + node.textContent.substring(range.startOffset);
-  const regex = new RegExp("(?<=^.*)(" + beginPattern + ").*?\x1f.*?(" + endPattern + ")")
+  const regex = new RegExp("(?<=^.*)(" + beginPattern + ")(?:.(?!" + endPattern + "))*\x1f.*?(" + endPattern + ")", "g")
   const match = regex.exec(text)
 
   if(match !== null && match.index !== null && match[0] !== null)
