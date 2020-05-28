@@ -4,10 +4,11 @@ Automatically create buttons and shortcut that manages wrapping and unwrapping t
 
 Default buttons:
 - Left justify (justify on the left, but center paragraph. Does not work on part of sentences)
-- Move to end of cloze (ctrl+g)
-- Move to inner end of cloze (ctrl+shift+g)
-- Move to begining of cloze (ctrl+f)
-- Move to inner begining of cloze (ctrl+shift+f)
+- Move to end of cloze (ctrl+shift+space)
+- Move to inner end of cloze (ctrl+space)
+- Move to begining of cloze (ctrl+alt+shift+space)
+- Move to inner begining of cloze (ctrl+shift+space)
+- Unwrap current cloze (alt+shift+u)
 
 Configuration
 ===
