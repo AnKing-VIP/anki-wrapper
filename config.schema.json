@@ -15,7 +15,7 @@
             "properties": {
               "keys": {
                 "type": "string",
-                "pattern": "^((([Cc][Tt][Rr][Ll]|[Aa][Ll][Tt]|[Ss][Hh][Ii][Ff][Tt])\\+){0,3}([a-zA-Z0-9]|F[1-9]|F1[0-2]))?$",
+                "pattern": "^((([Cc][Tt][Rr][Ll]|[Aa][Ll][Tt]|[Ss][Hh][Ii][Ff][Tt])\\+){0,3}([a-zA-Z0-9]|F[1-9]|F1[0-2]|space))?$",
                 "default": ""
               },
               "icon": { "type": "string", "default": "" },
