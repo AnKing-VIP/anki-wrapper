@@ -48,10 +48,10 @@ function moveBeginInside() {
 function unwrap() {
   const {beginIndex, beginPatternMatch, endIndex, endPatternMatch} = this;
 
-  moveCursor(beginIndex, beginIndex + beginPatternMatch.length);
+  moveCursor(endIndex - endPatternMatch.length, endIndex);
   setFormat("delete");
 
-  moveCursor(endIndex - endPatternMatch.length - beginPatternMatch.length, endIndex - beginPatternMatch.length);
+  moveCursor(beginIndex, beginIndex + beginPatternMatch.length);
   setFormat("delete");
 }
 
