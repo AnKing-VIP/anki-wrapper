@@ -101,7 +101,7 @@ def on_webview_will_set_content(web_content: WebContent, editor):
     if isinstance(editor, Editor):
         web_content.js.append(f"/_addons/{addon_package}/lib.js")
         web_content.js.append(f"/_addons/{addon_package}/commands.js")
-        web_content.js.append(os.path.join(user_files_path, "js.js"))
+        web_content.js.append(f"/_addons/{addon_package}/user_files/js.js")
 
 
 mw.addonManager.setWebExports(__name__, r"user_files/icons/.*")
