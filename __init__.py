@@ -1,22 +1,25 @@
-from .config import getUserOption
-from aqt import gui_hooks, mw 
-from aqt.qt import QShortcut, QKeySequence
-from aqt.editor import Editor
-from aqt.webview import WebContent
-import re
 import os
+import re
+from typing import Callable, Dict, List
+
+from aqt import gui_hooks, mw
+from aqt.editor import Editor
+from aqt.qt import QKeySequence, QShortcut
+from aqt.webview import WebContent
+
+from .config import getUserOption
 
 addon_package = mw.addonManager.addonFromModule(__name__)
 addon_path = os.path.dirname(__file__)
 user_files_path = os.path.join(addon_path, "user_files")
 
 
-def add_css(cmd, editor):
+def add_css_to_model(cmd: str, editor: Editor):
     config = getUserOption(["buttons", cmd, "css"], default=None)
     if not config:
         return
 
-    def _compose_css(name, css):
+    def _compose_css(name: str, css: dict) -> str:
         if isinstance(css, dict):
             css = ';\n'.join([*[f"{key}: {value}" for key, value in
                 css.items()], ""])[:-1]
@@ -56,10 +59,10 @@ def add_css(cmd, editor):
         css = re.sub(wrapper_code_query, wrapper_code_new, css, flags=re.S|re.M)
         _save_css()
 
-def param_wraps(cmd):
-    def result(editor):
+def param_wraps(cmd: str) -> Callable[[Editor], None]:
+    def result(editor: Editor):
         # Add css
-        add_css(cmd, editor)
+        add_css_to_model(cmd, editor)
 
         # Do the requested action
         c = getUserOption(["buttons", cmd])
@@ -68,8 +71,8 @@ def param_wraps(cmd):
 
     return result
 
-def init(rightoptbuttons, editor):
-    def _parse_style(config):
+def init(rightoptbuttons: List[str], editor: Editor):
+    def _parse_style(config) -> Dict:
         result = dict(**config)
 
         if not config.get("icon"):
@@ -79,7 +82,7 @@ def init(rightoptbuttons, editor):
 
         return result
 
-    def add(config):
+    def add_btn(config) -> Callable:
         def _addButtonInvisible(keys, func, **kwargs):
             QShortcut(  # type: ignore
                 QKeySequence(keys), editor.widget, activated=lambda s=editor: func(s),
@@ -90,7 +93,7 @@ def init(rightoptbuttons, editor):
         else:
             return _addButtonInvisible
 
-    buttons = [add(config)(
+    buttons = [add_btn(config)(
         cmd=cmd,
         func=param_wraps(cmd),
         **_parse_style(config.get("style", {})),
