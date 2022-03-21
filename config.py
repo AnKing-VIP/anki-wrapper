@@ -1,12 +1,9 @@
-import sys
-
 from aqt import mw
-from aqt.utils import showWarning
-
 
 userOption = None
 addon = mw.addonManager.addonFromModule(__name__)
 default = mw.addonManager.addonConfigDefaults(__name__)
+
 
 def _getUserOption():
     global userOption
@@ -31,7 +28,7 @@ def getUserOption(keys=None, **kwargs):
         keys = [keys]
 
     try:
-        default_value = kwargs['default']
+        default_value = kwargs["default"]
     except KeyError:
         default_on_block = False
     else:
@@ -66,10 +63,9 @@ def getUserOption(keys=None, **kwargs):
         writeConfig()
     return current
 
+
 def writeConfig():
     mw.addonManager.writeConfig(__name__, userOption)
-
-
 
 
 def update(_):
@@ -96,4 +92,3 @@ def setUserOption(key, value):
     _getUserOption()
     userOption[key] = value
     writeConfig()
-

@@ -31,7 +31,7 @@ def add_css_to_model(cmd: str, editor: Editor):
 
     cssToAdd = "\n".join(_compose_css(name, css) for name, css in config.items())
 
-    prefix = fr"BEGIN WRAPPER CODE {cmd}"
+    prefix = rf"BEGIN WRAPPER CODE {cmd}"
     prefix_comment = "Please do not edit this section directly, this code is generated automatically. Modify config.json instead"
     suffix = r"END WRAPPER CODE"
 
@@ -99,7 +99,7 @@ def init(rightoptbuttons: List[str], editor: Editor):
             cmd=cmd,
             func=param_wraps(cmd),
             **_parse_style(config.get("style", {})),
-            id=f"meta-wrapper-btn-{cmd}"
+            id=f"meta-wrapper-btn-{cmd}",
         )
         for cmd, config in getUserOption("buttons").items()
     ]
