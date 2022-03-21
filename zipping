@@ -1,4 +1,0 @@
-#! /bin/sh
-rm wrapper.zip
-zip -r wrapper.zip config.* *.ui *.sh *.py *.css *.js web  LICENSE *.md zipping user_files --exclude \*~ \*zip ankiweb
-
