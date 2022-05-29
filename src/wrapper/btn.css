@@ -1,3 +1,4 @@
 [id^=meta-wrapper-btn] {
     width: auto !important;
+    max-width: calc(var(--buttons-size));
 }
