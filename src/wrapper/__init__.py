@@ -9,9 +9,9 @@ from aqt.webview import WebContent
 
 from .config import getUserOption
 
-addon_package = mw.addonManager.addonFromModule(__name__)
-addon_path = os.path.dirname(__file__)
-user_files_path = os.path.join(addon_path, "user_files")
+ADDON_PACKAGE_NAME = mw.addonManager.addonFromModule(__name__)
+ADDON_PATH = os.path.dirname(__file__)
+USER_FILES_PATH = os.path.join(ADDON_PATH, "user_files")
 
 
 def add_css_to_model(cmd: str, editor: Editor):
@@ -44,44 +44,42 @@ def add_css_to_model(cmd: str, editor: Editor):
     model = editor.note.model()
     css = model["css"]
 
-    def _save_css():
-        model["css"] = css
-        mw.col.models.save(model, updateReqs=False)
-
     match = re.search(wrapper_code_query, css, flags=re.S | re.M)
     if match is None:
         css += "\n" + wrapper_code_new
-        _save_css()
     elif match.group("style") != cssToAdd:
         css = re.sub(wrapper_code_query, wrapper_code_new, css, flags=re.S | re.M)
-        _save_css()
 
-
-def param_wraps(cmd: str) -> Callable[[Editor], None]:
-    def result(editor: Editor):
-        # Add css
-        add_css_to_model(cmd, editor)
-
-        # Do the requested action
-        c = getUserOption(["buttons", cmd])
-        [begin, end] = [c[i].replace("\\", "\\\\") for i in ["beginWrap", "endWrap"]]
-        editor.web.eval(fr"callCmd({c['action']}, '{begin}', '{end}');")
-
-    return result
+    model["css"] = css
+    mw.col.models.save(model, updateReqs=False)
 
 
 def init(rightoptbuttons: List[str], editor: Editor):
+    def _param_wraps(cmd: str) -> Callable[[Editor], None]:
+        def result(editor: Editor):
+            # Add css
+            add_css_to_model(cmd, editor)
+
+            # Do the requested action
+            c = getUserOption(["buttons", cmd])
+            [begin, end] = [
+                c[i].replace("\\", "\\\\") for i in ["beginWrap", "endWrap"]
+            ]
+            editor.web.eval(rf"callCmd({c['action']}, '{begin}', '{end}');")
+
+        return result
+
     def _parse_style(config) -> Dict:
         result = dict(**config)
 
         if not config.get("icon"):
             result["icon"] = None
         else:
-            result["icon"] = os.path.join(user_files_path, f"icons/{result['icon']}")
+            result["icon"] = os.path.join(USER_FILES_PATH, f"icons/{result['icon']}")
 
         return result
 
-    def add_btn(config) -> Callable:
+    def _add_btn(config) -> Callable:
         def _addButtonInvisible(keys, func, **kwargs):
             QShortcut(  # type: ignore
                 QKeySequence(keys),
@@ -95,9 +93,9 @@ def init(rightoptbuttons: List[str], editor: Editor):
             return _addButtonInvisible
 
     buttons = [
-        add_btn(config)(
+        _add_btn(config)(
             cmd=cmd,
-            func=param_wraps(cmd),
+            func=_param_wraps(cmd),
             **_parse_style(config.get("style", {})),
             id=f"meta-wrapper-btn-{cmd}",
         )
@@ -106,15 +104,18 @@ def init(rightoptbuttons: List[str], editor: Editor):
     rightoptbuttons.extend([i for i in buttons if i])
 
 
-def on_webview_will_set_content(web_content: WebContent, editor):
-    if isinstance(editor, Editor):
-        web_content.js.append(f"/_addons/{addon_package}/lib.js")
-        web_content.js.append(f"/_addons/{addon_package}/commands.js")
-        web_content.js.append(f"/_addons/{addon_package}/user_files/js.js")
-        web_content.css.append(f"/_addons/{addon_package}/btn.css")
-
+gui_hooks.editor_did_init_buttons.append(init)
 
 mw.addonManager.setWebExports(__name__, r"user_files/icons/.*")
 mw.addonManager.setWebExports(__name__, r".*(css|js)")
-gui_hooks.editor_did_init_buttons.append(init)
+
+
+def on_webview_will_set_content(web_content: WebContent, editor):
+    if isinstance(editor, Editor):
+        web_content.js.append(f"/_addons/{ADDON_PACKAGE_NAME}/lib.js")
+        web_content.js.append(f"/_addons/{ADDON_PACKAGE_NAME}/commands.js")
+        web_content.js.append(f"/_addons/{ADDON_PACKAGE_NAME}/user_files/js.js")
+        web_content.css.append(f"/_addons/{ADDON_PACKAGE_NAME}/btn.css")
+
+
 gui_hooks.webview_will_set_content.append(on_webview_will_set_content)
