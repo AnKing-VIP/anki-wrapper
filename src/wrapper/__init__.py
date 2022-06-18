@@ -111,10 +111,15 @@ mw.addonManager.setWebExports(__name__, r".*(css|js)")
 
 
 def on_webview_will_set_content(web_content: WebContent, editor):
+    # Workaround to a bug in v2.1.50.
+    # https://forums.ankiweb.net/t/2-1-50-editor-wont-show-when-addons-load-many-js-files/19036
+    def append_js_to_body(src: str):
+        web_content.body += f'<script src="{src}"></script>'
+
     if isinstance(editor, Editor):
-        web_content.js.append(f"/_addons/{ADDON_PACKAGE_NAME}/lib.js")
-        web_content.js.append(f"/_addons/{ADDON_PACKAGE_NAME}/commands.js")
-        web_content.js.append(f"/_addons/{ADDON_PACKAGE_NAME}/user_files/js.js")
+        append_js_to_body(f"/_addons/{ADDON_PACKAGE_NAME}/lib.js")
+        append_js_to_body(f"/_addons/{ADDON_PACKAGE_NAME}/commands.js")
+        append_js_to_body(f"/_addons/{ADDON_PACKAGE_NAME}/user_files/js.js")
         web_content.css.append(f"/_addons/{ADDON_PACKAGE_NAME}/btn.css")
 
 
