@@ -1,67 +1,79 @@
 {
   "buttons": {
-    "justify": {
-      "action": "wrap",
-      "style": {
-        "icon": "left_justify.png",
-        "tip": "Justify text and center it"
-      },
-      "css": {
-        "leftalign": {
-          "display": "inline-block",
-          "text-align": "left"
-        },
-        "centeredbox": {
-            "text-align": "center"
-        }
-      },
-      "beginWrap": "<div class=\"centeredbox\"><div class=\"leftalign\">",
-      "endWrap": "</div></div>"
-    },
-    "endCloze": {
-      "visible": false,
-      "action": "moveEnd",
-      "style": {
-        "keys": "ctrl+shift+space"
-      },
-      "beginWrap": "{{c[0-9]::",
-      "endWrap": "}} ?"
-    },
-    "endClozeInside": {
-      "visible": false,
-      "action": "moveEndInside",
-      "style": {
-        "keys": "ctrl+space"
-      },
-      "beginWrap": "{{c[0-9]::",
-      "endWrap": "}}"
-    },
     "beginCloze": {
-      "visible": false,
       "action": "moveBegin",
+      "beginWrap": "{{c[0-9]::",
+      "endWrap": "}}",
       "style": {
         "keys": "ctrl+alt+shift+space"
       },
-      "beginWrap": "{{c[0-9]::",
-      "endWrap": "}}"
+      "visible": false
     },
     "beginClozeInside": {
-      "visible": false,
       "action": "moveBeginInside",
+      "beginWrap": "{{c[0-9]::",
+      "endWrap": "}}",
       "style": {
         "keys": "ctrl+alt+space"
       },
+      "visible": false
+    },
+    "citation": {
+      "action": "wrap",
+      "beginWrap": "<i><span style=\"font-size: 10pt;\">",
+      "endWrap": "</span></i>",
+      "style": {
+        "icon": "quote.png",
+        "tip": "Add citation styling - small font & italics"
+      },
+      "visible": true
+    },
+    "endCloze": {
+      "action": "moveEnd",
       "beginWrap": "{{c[0-9]::",
-      "endWrap": "}}"
+      "endWrap": "}} ?",
+      "style": {
+        "keys": "ctrl+shift+space"
+      },
+      "visible": false
+    },
+    "endClozeInside": {
+      "action": "moveEndInside",
+      "beginWrap": "{{c[0-9]::",
+      "endWrap": "}}",
+      "style": {
+        "keys": "ctrl+space"
+      },
+      "visible": false
+    },
+    "justify": {
+      "action": "wrap",
+      "beginWrap": "<div class=\"centeredbox\"><div class=\"leftalign\">",
+      "css": {
+        "centeredbox": {
+          "text-align": "center"
+        },
+        "leftalign": {
+          "display": "inline-block",
+          "text-align": "left"
+        }
+      },
+      "endWrap": "</div></div>",
+      "style": {
+        "icon": "left_justify.png",
+        "tip": "Justify text and center it"
+      }
     },
     "uncloze": {
-      "visible": false,
       "action": "unwrap",
-      "style": {
-        "keys": "ctrl+alt+u"
-      },
       "beginWrap": "{{c[0-9]::",
-      "endWrap": "}}"
+      "endWrap": "}}",
+      "style": {
+        "icon": "uncloze.png",
+        "keys": "ctrl+alt+u",
+        "tip": "Remove cloze from area where cursor is"
+      },
+      "visible": true
     }
   }
 }
