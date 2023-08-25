@@ -55,4 +55,7 @@ function unwrap() {
   setFormat("delete");
 }
 
-
+function addBlurClass() {
+  const { sel } = this;
+  toggleClassRecursively(sel.getRangeAt(0).commonAncestorContainer, 'IMG', 'blur');
+}

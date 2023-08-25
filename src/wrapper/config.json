@@ -74,6 +74,22 @@
         "tip": "Remove cloze from area where cursor is"
       },
       "visible": true
+    },
+    "imagesBlur": {
+      "action": "addBlurClass",
+      "beginWrap": "",
+      "endWrap": "",
+      "css": {
+        "blur": {
+          "filter": "blur(15px)"
+        }
+      },
+      "style": {
+        "icon": "blur.png",
+        "keys": "ctrl+alt+b",
+        "tip": "Blur selected images"
+      },
+      "visible": true
     }
   }
 }

@@ -9,6 +9,7 @@ Default buttons:
 - Move to begining of cloze (ctrl+alt+shift+space)
 - Move to inner begining of cloze (ctrl+shift+space)
 - Unwrap current cloze (alt+shift+u)
+- Blur selected images (ctrl+alt+b)
 
 Configuration
 ===
@@ -45,4 +46,8 @@ The this parameter contains:
 <br>
 <b>Check out our <a href="https://courses.ankipalace.com/?utm_source=wrapper_add-on&amp;utm_medium=anki_add-on_page&amp;utm_campaign=mastery_course" rel="nofollow">Anki Mastery Course</a>! (The source of funding for this project)</b><br>
 </p>
+
+## Credit
+
+blur.png icon is from [pictogrammers.com](https://pictogrammers.com/library/mdi/icon/blur/). Licensed under Apache 2.0.
 

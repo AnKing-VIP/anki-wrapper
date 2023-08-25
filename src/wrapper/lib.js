@@ -64,3 +64,13 @@ function getFieldInputSelection() {
   }
   return shadowRoot.getSelection()
 }
+
+// Toggle a class in root or its children if they have the given tag name
+function toggleClassRecursively(root, tagName, cls) {
+  if(root.tagName === tagName) {
+    root.classList.toggle(cls);
+  }
+  for(const child of root.childNodes) {
+    toggleClassRecursively(child, tagName, cls);
+  }
+}
