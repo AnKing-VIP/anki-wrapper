@@ -1,3 +1,4 @@
+import json
 import os
 import re
 from typing import Callable, Dict, List
@@ -62,10 +63,9 @@ def init(rightoptbuttons: List[str], editor: Editor):
 
             # Do the requested action
             c = getUserOption(["buttons", cmd])
-            [begin, end] = [
-                c[i].replace("\\", "\\\\") for i in ["beginWrap", "endWrap"]
-            ]
-            editor.web.eval(rf"callCmd({c['action']}, '{begin}', '{end}');")
+            begin = c["beginWrap"]
+            end = c["endWrap"]
+            editor.web.eval(rf"callCmd({c['action']}, {json.dumps(begin)}, {json.dumps(end)});")
 
         return result
 
