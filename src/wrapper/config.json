@@ -64,6 +64,17 @@
         "tip": "Justify text and center it"
       }
     },
+    "mnemonic": {
+      "action": "wrap",
+      "beginWrap": "<div class=\"mnemonics\">",
+      "endWrap": "</div>",
+      "style": {
+          "icon": "mnemonic.png",
+          "keys": "ctrl+alt+m",
+          "tip": "Add mnemonic styling - left justify"
+      },
+      "visible": true
+    },
     "uncloze": {
       "action": "unwrap",
       "beginWrap": "{{c[0-9]::",
