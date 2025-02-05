@@ -91,6 +91,7 @@
       "beginWrap": "<div class=\"shuffle\">",
       "endWrap": "</div>",
       "style": {
+          "icon": "shuffle.png",
           "tip": "Shuffle images or lists"
       },
       "visible": true
