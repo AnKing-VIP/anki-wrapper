@@ -15,7 +15,7 @@ ADDON_PATH = os.path.dirname(__file__)
 USER_FILES_PATH = os.path.join(ADDON_PATH, "user_files")
 
 
-def add_css_to_model(cmd: str, editor: Editor):
+def add_css_to_model(cmd: str, model):
     config = getUserOption(["buttons", cmd, "css"], default=None)
     if not config:
         return
@@ -42,7 +42,6 @@ def add_css_to_model(cmd: str, editor: Editor):
 
     wrapper_code_query = f"/\* {prefix}.*\*/\n" f"(?P<style>.*?)\n" f"/\* {suffix} \*/"
 
-    model = editor.note.model()
     css = model["css"]
 
     match = re.search(wrapper_code_query, css, flags=re.S | re.M)
@@ -52,14 +51,47 @@ def add_css_to_model(cmd: str, editor: Editor):
         css = re.sub(wrapper_code_query, wrapper_code_new, css, flags=re.S | re.M)
 
     model["css"] = css
-    mw.col.models.save(model, updateReqs=False)
+
+def add_html_to_model(cmd: str, model):
+    config = getUserOption(["buttons", cmd, "html"], default=None)
+    if not config:
+        return
+
+    def read_html(filename: str) -> str:
+        with open(os.path.join(USER_FILES_PATH, "html", filename), "r", encoding="utf-8") as f:
+            return f.read()
+
+    sides_html = {
+        "qfmt": "\n".join(read_html(filename) for filename in config.get("front", [])),
+        "afmt": "\n".join(read_html(filename) for filename in config.get("back", []))
+    }
+
+    prefix = rf"BEGIN WRAPPER CODE {cmd}"
+    prefix_comment = "Please do not edit this section directly, this code is generated automatically. Modify config.json instead"
+    suffix = r"END WRAPPER CODE"
+
+    for tmpl in model["tmpls"]:
+        for side, html in sides_html.items():
+            wrapper_code_new = (
+                f"<!-- {prefix}\n" f"{prefix_comment} -->\n" f"{html}\n" f"<!-- {suffix} -->"
+            )
+            wrapper_code_query = f"<!-- {prefix}.*-->\n" f"(?P<html>.*?)\n" f"<!-- {suffix} -->"
+            template_contents = tmpl[side]
+            match = re.search(wrapper_code_query, template_contents, flags=re.S | re.M)
+            if match is None:
+                template_contents += "\n" + wrapper_code_new
+            elif match.group("html") != html:
+                template_contents = re.sub(wrapper_code_query, wrapper_code_new, template_contents, flags=re.S | re.M)
+            tmpl[side] = template_contents
 
 
 def init(rightoptbuttons: List[str], editor: Editor):
     def _param_wraps(cmd: str) -> Callable[[Editor], None]:
         def result(editor: Editor):
-            # Add css
-            add_css_to_model(cmd, editor)
+            model = editor.note.model()
+            add_css_to_model(cmd, model)
+            add_html_to_model(cmd, model)
+            mw.col.models.save(model, updateReqs=False)
 
             # Do the requested action
             c = getUserOption(["buttons", cmd])

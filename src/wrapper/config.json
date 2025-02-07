@@ -85,6 +85,20 @@
         "tip": "Remove cloze from area where cursor is"
       },
       "visible": true
+    },
+    "shuffle": {
+      "action": "wrap",
+      "beginWrap": "<div class=\"shuffle\">",
+      "endWrap": "</div>",
+      "style": {
+          "icon": "shuffle.png",
+          "tip": "Shuffle images or lists"
+      },
+      "html": {
+        "front": ["shuffle.html"],
+        "back": ["shuffle.html"]
+      },
+      "visible": true
     }
   }
 }
