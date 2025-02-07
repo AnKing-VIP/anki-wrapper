@@ -94,6 +94,10 @@
           "icon": "shuffle.png",
           "tip": "Shuffle images or lists"
       },
+      "html": {
+        "front": ["shuffle.html"],
+        "back": ["shuffle.html"]
+      },
       "visible": true
     }
   }

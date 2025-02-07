@@ -14,3 +14,6 @@
       * Value: Object representing the style of the class. Can also be a one-line string or a multiline string (array of string)
     - beginWrap: Left-wrapping text
     - endWrap: Right-wrapping text
+    - html: HTML files to add to templates when calling this button. The names are relative to the user_files/html folder.
+      * front: list of files to add to front template.
+      * back: list of files to add to back template.
