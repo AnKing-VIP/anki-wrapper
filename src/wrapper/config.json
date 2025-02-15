@@ -19,7 +19,7 @@
       "visible": false
     },
     "citation": {
-      "action": "wrap",
+      "action": "wrap2",
       "beginWrap": "<i><span style=\"font-size: 10pt;\">",
       "endWrap": "</span></i>",
       "style": {
@@ -47,7 +47,7 @@
       "visible": false
     },
     "justify": {
-      "action": "wrap",
+      "action": "wrap2",
       "beginWrap": "<div class=\"centeredbox\"><div class=\"leftalign\">",
       "css": {
         "centeredbox": {
@@ -65,7 +65,7 @@
       }
     },
     "mnemonic": {
-      "action": "wrap",
+      "action": "wrap2",
       "beginWrap": "<div class=\"mnemonics\">",
       "endWrap": "</div>",
       "style": {
@@ -87,7 +87,7 @@
       "visible": true
     },
     "shuffle": {
-      "action": "wrap",
+      "action": "wrap2",
       "beginWrap": "<div class=\"shuffle\">",
       "endWrap": "</div>",
       "style": {
