@@ -46,33 +46,12 @@
       },
       "visible": false
     },
-    "justify": {
-      "action": "wrap2",
-      "beginWrap": "<div class=\"centeredbox\"><div class=\"leftalign\">",
-      "css": {
-        "centeredbox": {
-          "text-align": "center"
-        },
-        "centeredbox ul, .centeredbox ol": {
-          "max-width": "100%"
-        },
-        "leftalign": {
-          "display": "inline-block",
-          "text-align": "left"
-        }
-      },
-      "endWrap": "</div></div>",
-      "style": {
-        "icon": "left_justify.png",
-        "tip": "Justify text and center it"
-      }
-    },
     "mnemonic": {
       "action": "wrap2",
       "beginWrap": "<div class=\"mnemonics\">",
       "endWrap": "</div>",
       "style": {
-          "icon": "mnemonic.png",
+          "icon": "left_justify.png",
           "keys": "ctrl+alt+m",
           "tip": "Add mnemonic styling - left justify"
       },
