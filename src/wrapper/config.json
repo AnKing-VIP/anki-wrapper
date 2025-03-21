@@ -81,6 +81,16 @@
         "back": ["shuffle.html"]
       },
       "visible": true
+    },
+    "unshuffle": {
+      "action": "wrap2",
+      "beginWrap": "<div class=\"no-shuffle\">",
+      "endWrap": "</div>",
+      "style": {
+          "icon": "unshuffle.png",
+          "tip": "Add no-shuffle class to disable shuffling"
+      },
+      "visible": true
     }
   }
 }

@@ -12,6 +12,7 @@
     }
 
     function shuffleElements(elements) {
+        elements = elements.filter(e => !e.matches(".no-shuffle *"));
         const shuffledElements = Array.from(
             elements.map((el) => el.cloneNode(true))
         );
