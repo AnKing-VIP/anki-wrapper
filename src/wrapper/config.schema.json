@@ -34,6 +34,14 @@
               ]
             }
           },
+          "html": {
+            "type": "object",
+            "properties": {
+              "front": {"type": "array", "items": {"type": "string"}},
+              "back": {"type": "array", "items": {"type": "string"}}
+            },
+            "additionalProperties": false
+          },
           "beginWrap": {"type": "string"},
           "endWrap": {"type": "string"}
         },
