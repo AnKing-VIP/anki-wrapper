@@ -40,6 +40,10 @@ function wrap2(begin, end) {
   let expand;
   do {
       expand = false;
+      if(startParent instanceof ShadowRoot || endParent instanceof ShadowRoot) {
+        break;
+      }
+
       if (
           startParent
           && startParent.parentNode !== base && startParent.parentNode.tagName !== "ANKI-EDITABLE" && startParent.parentNode?.firstChild === startParent
