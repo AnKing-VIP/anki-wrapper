@@ -130,3 +130,5 @@ dmypy.json
 
 # Wrapper
 meta.json
+user_files/html/
+user_files/icons/

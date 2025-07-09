@@ -1,17 +1,21 @@
 import json
 import os
+from pathlib import Path
 import re
+import shutil
 from typing import Callable, Dict, List
 
 from aqt import gui_hooks, mw
 from aqt.editor import Editor
 from aqt.qt import QKeySequence, QShortcut
 from aqt.webview import WebContent
+from send2trash import send2trash
 
 from .config import getUserOption
 
 ADDON_PACKAGE_NAME = mw.addonManager.addonFromModule(__name__)
 ADDON_PATH = os.path.dirname(__file__)
+DEFAULT_USER_FILES_PATH = os.path.join(ADDON_PATH, "default_user_files")
 USER_FILES_PATH = os.path.join(ADDON_PATH, "user_files")
 
 
@@ -135,13 +139,6 @@ def init(rightoptbuttons: List[str], editor: Editor):
     ]
     rightoptbuttons.extend([i for i in buttons if i])
 
-
-gui_hooks.editor_did_init_buttons.append(init)
-
-mw.addonManager.setWebExports(__name__, r"user_files/icons/.*")
-mw.addonManager.setWebExports(__name__, r".*(css|js)")
-
-
 def on_webview_will_set_content(web_content: WebContent, editor):
     # Workaround to a bug in v2.1.50.
     # https://forums.ankiweb.net/t/2-1-50-editor-wont-show-when-addons-load-many-js-files/19036
@@ -154,5 +151,18 @@ def on_webview_will_set_content(web_content: WebContent, editor):
         append_js_to_body(f"/_addons/{ADDON_PACKAGE_NAME}/user_files/js.js")
         web_content.css.append(f"/_addons/{ADDON_PACKAGE_NAME}/btn.css")
 
+def copy_default_user_files():
+    for dirpath, _, filenames in os.walk(DEFAULT_USER_FILES_PATH):
+        rel_dirpath = Path(dirpath).relative_to(DEFAULT_USER_FILES_PATH)
+        for file in filenames:
+            dest_path = os.path.join(USER_FILES_PATH, rel_dirpath, file)
+            os.makedirs(dest_path, exist_ok=True)
+            if os.path.exists(dest_path):
+                send2trash(dest_path)
+            shutil.copy(os.path.join(dirpath, file), dest_path)
 
+gui_hooks.editor_did_init_buttons.append(init)
 gui_hooks.webview_will_set_content.append(on_webview_will_set_content)
+mw.addonManager.setWebExports(__name__, r"user_files/icons/.*")
+mw.addonManager.setWebExports(__name__, r".*(css|js)")
+copy_default_user_files()
