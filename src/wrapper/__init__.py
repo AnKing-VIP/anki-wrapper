@@ -9,7 +9,6 @@ from aqt import gui_hooks, mw
 from aqt.editor import Editor
 from aqt.qt import QKeySequence, QShortcut
 from aqt.webview import WebContent
-from send2trash import send2trash
 
 from .config import getUserOption
 
@@ -17,7 +16,7 @@ ADDON_PACKAGE_NAME = mw.addonManager.addonFromModule(__name__)
 ADDON_PATH = os.path.dirname(__file__)
 DEFAULT_USER_FILES_PATH = os.path.join(ADDON_PATH, "default_user_files")
 USER_FILES_PATH = os.path.join(ADDON_PATH, "user_files")
-
+USER_FILES_BACKUP_PATH = os.path.join(ADDON_PATH, "user_files", "backup")
 
 def add_css_to_model(cmd: str, model):
     config = getUserOption(["buttons", cmd, "css"], default=None)
@@ -156,9 +155,11 @@ def copy_default_user_files():
         rel_dirpath = Path(dirpath).relative_to(DEFAULT_USER_FILES_PATH)
         for file in filenames:
             dest_path = os.path.join(USER_FILES_PATH, rel_dirpath, file)
-            os.makedirs(dest_path, exist_ok=True)
+            os.makedirs(os.path.dirname(dest_path), exist_ok=True)
             if os.path.exists(dest_path):
-                send2trash(dest_path)
+                backup_path = os.path.join(USER_FILES_BACKUP_PATH, rel_dirpath, file)
+                os.makedirs(os.path.dirname(backup_path), exist_ok=True)
+                shutil.copy(dest_path, backup_path)
             shutil.copy(os.path.join(dirpath, file), dest_path)
 
 gui_hooks.editor_did_init_buttons.append(init)
