@@ -43,7 +43,7 @@ def add_css_to_model(cmd: str, model):
         f"/* {prefix}\n" f"{prefix_comment} */\n" f"{cssToAdd}\n" f"/* {suffix} */"
     )
 
-    wrapper_code_query = f"/\\* {prefix}.*\\*/\n" f"(?P<style>.*?)\n" f"/\\* {suffix} \\*/"
+    wrapper_code_query = f"/\\* {re.escape(prefix)}.*\\*/\n" f"(?P<style>.*?)\n" f"/\\* {suffix} \\*/"
 
     css = model["css"]
 
@@ -78,7 +78,7 @@ def add_html_to_model(cmd: str, model):
             wrapper_code_new = (
                 f"<!-- {prefix}\n" f"{prefix_comment} -->\n" f"{html}\n" f"<!-- {suffix} -->"
             )
-            wrapper_code_query = f"<!-- {prefix}.*-->\n" f"(?P<html>.*?)\n" f"<!-- {suffix} -->"
+            wrapper_code_query = f"<!-- {re.escape(prefix)}.*-->\n" f"(?P<html>.*?)\n" f"<!-- {suffix} -->"
             template_contents = tmpl[side]
             match = re.search(wrapper_code_query, template_contents, flags=re.S | re.M)
             if match is None:
