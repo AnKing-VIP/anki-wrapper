@@ -15,6 +15,21 @@ function wrap2(begin, end) {
       return;
   }
 
+  // To keep inline <code> inside a selected block, even at its edges, keep the original range instead of expanding it around the parent div.
+  if (begin === "<code>" && end === "</code>" && !range.collapsed) {
+      const preview = range.cloneContents();
+      const blocks = "div,p,pre,blockquote,ul,ol,li,table,h1,h2,h3,h4,h5,h6";
+      if (!preview.querySelector(blocks)) {
+          const code = document.createElement("code");
+          code.appendChild(range.extractContents());
+          range.insertNode(code);
+          range.selectNodeContents(code);
+          selection.removeAllRanges();
+          selection.addRange(range);
+          return;
+      }
+  }
+
   let startParent = range.startContainer.parentNode;
   if (
       startParent !== base
