@@ -51,7 +51,7 @@ def add_css_to_model(cmd: str, model):
     if match is None:
         css += "\n" + wrapper_code_new
     elif match.group("style") != cssToAdd:
-        css = re.sub(wrapper_code_query, wrapper_code_new, css, flags=re.S | re.M)
+        css = re.sub(wrapper_code_query, lambda _: wrapper_code_new, css, flags=re.S | re.M)
 
     model["css"] = css
 
@@ -84,7 +84,7 @@ def add_html_to_model(cmd: str, model):
             if match is None:
                 template_contents += "\n" + wrapper_code_new
             elif match.group("html") != html:
-                template_contents = re.sub(wrapper_code_query, wrapper_code_new, template_contents, flags=re.S | re.M)
+                template_contents = re.sub(wrapper_code_query, lambda _: wrapper_code_new, template_contents, flags=re.S | re.M)
             tmpl[side] = template_contents
 
 
