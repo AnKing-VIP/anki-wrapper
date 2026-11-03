@@ -43,7 +43,7 @@ def add_css_to_model(cmd: str, model):
         f"/* {prefix}\n" f"{prefix_comment} */\n" f"{cssToAdd}\n" f"/* {suffix} */"
     )
 
-    wrapper_code_query = f"/\* {prefix}.*\*/\n" f"(?P<style>.*?)\n" f"/\* {suffix} \*/"
+    wrapper_code_query = f"/\\* {prefix}.*\\*/\n" f"(?P<style>.*?)\n" f"/\\* {suffix} \\*/"
 
     css = model["css"]
 
